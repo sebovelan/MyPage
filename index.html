@@ -368,7 +368,7 @@
             <div class="content-card" id="about-cv">
                 <h2 class="section-title">About Me</h2>
                 <p class="section-paragraph">I thrive on bringing a systems-level perspective to software development. My background includes providing expert support for enterprise-level Google services, which honed my skills in troubleshooting complex network architectures and real-time communication protocols like WebRTC and VoIP.</p>
-                <a href="path/to/your/resume.pdf" class="btn" download>Download CV</a>
+                <a href="Sebastian_Ovelar_Anderson_CV.pdf" class="btn" download>Download CV</a>
             </div>
         </section>
 
@@ -410,7 +410,7 @@
                 <h2 class="section-title">Project 03 / Machine Learning for Music Performance</h2>
                 <p class="section-paragraph">This research involved training machine learning models to predict the expressive timing and dynamics introduced by famous cellists, exploring the nuances of musical performance.</p>
                 <p class="tech-stack"><strong>Focus:</strong> Machine Learning, Signal Processing, Data Analysis</p>
-                <a href="https://drive.google.com/drive/folders/1ThgTO5xzfWaLgsgN1cNQOwAxPUuEYNL" class="btn" target="_blank">View Project Files</a>
+                <a href="https://repositori.upf.edu/items/a159c61e-6ff6-4ae3-a177-ab918686d411" class="btn" target="_blank">View Project Files</a>
             </div>
         </section>
 
@@ -436,7 +436,6 @@
 
     </div>
 
-    <!-- Video Modal -->
     <div id="video-modal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -450,7 +449,6 @@
         </div>
     </div>
 
-    <!-- 3D Demo Modal -->
     <div id="3d-modal" class="modal">
         <div class="modal-content">
             <span class="close-modal">&times;</span>
@@ -458,7 +456,6 @@
         </div>
     </div>
 
-    <!-- Core Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
@@ -567,10 +564,10 @@
             function setupModal(modalId, btnId, iframeId) {
                 const modal = document.getElementById(modalId);
                 const btn = document.getElementById(btnId);
-                if (!btn) return; // Guard clause if button doesn't exist
+                if (!btn) return;
                 const closeModalBtn = modal.querySelector('.close-modal');
                 const iframe = document.getElementById(iframeId);
-                const originalSrc = iframe.src;
+                const originalSrc = iframe ? iframe.src : '';
 
                 btn.addEventListener('click', () => {
                     modal.classList.add('show');
