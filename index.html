@@ -10,7 +10,6 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-MPL129YPYY');
     </script>
     <style>
@@ -27,6 +26,10 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -85,14 +88,14 @@
         }
 
         h2.section-title {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: var(--accent-color);
             margin-bottom: 1rem;
         }
 
         p.section-paragraph {
-            font-size: 1.1rem;
-            line-height: 1.6;
+            font-size: 1.05rem;
+            line-height: 1.7;
             color: var(--subtle-gray);
             margin-bottom: 1.5rem;
         }
@@ -108,7 +111,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 20px;
-            padding: 2rem 3rem;
+            padding: 2rem 2.5rem;
             max-width: 500px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -123,22 +126,37 @@
                 margin-top: 1.5rem;
             }
 
+        /* Combined About + Skills Card */
+        .about-skills-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1000px;
+            width: 100%;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .about-skills-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
         .skills-list {
             list-style: none;
             padding: 0;
             margin-top: 1rem;
             text-align: left;
-            columns: 2;
-            -webkit-columns: 2;
-            -moz-columns: 2;
         }
 
             .skills-list li {
                 background-color: rgba(255,255,255,0.05);
-                padding: 8px 12px;
+                padding: 8px 14px;
                 border-radius: 8px;
                 margin-bottom: 8px;
                 font-weight: 500;
+                font-size: 0.9rem;
             }
 
         .btn {
@@ -251,67 +269,311 @@
         }
 
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        /* Modal Styles */
-        .modal {
-            position: fixed;
+        /* Project Intro Sections */
+        .project-intro-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .project-intro-content {
+            max-width: 800px;
+            text-align: center;
+        }
+
+            .project-intro-content .project-number {
+                font-size: 0.9rem;
+                color: var(--accent-color);
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                margin-bottom: 1rem;
+            }
+
+            .project-intro-content h2 {
+                font-size: clamp(2rem, 5vw, 3.5rem);
+                font-weight: 700;
+                margin-bottom: 1.5rem;
+                background: linear-gradient(135deg, var(--text-color), var(--accent-color));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .project-intro-content p {
+                font-size: 1.2rem;
+                line-height: 1.8;
+                color: var(--subtle-gray);
+                margin-bottom: 2rem;
+            }
+
+            .project-intro-content .tech-tags {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.75rem;
+                margin-bottom: 2rem;
+            }
+
+                .project-intro-content .tech-tags span {
+                    background: rgba(0, 113, 227, 0.15);
+                    border: 1px solid rgba(0, 113, 227, 0.3);
+                    padding: 0.5rem 1rem;
+                    border-radius: 50px;
+                    font-size: 0.85rem;
+                    color: var(--accent-color);
+                }
+
+        /* Video Showcase Immersive Section */
+        .video-showcase {
+            height: 300vh;
+            position: relative;
+        }
+
+        .video-sticky {
+            position: sticky;
             top: 0;
-            left: 0;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-wrapper {
+            position: relative;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.8);
-            z-index: 1100;
             display: flex;
-            justify-content: center;
             align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            justify-content: center;
+            background: #000;
         }
 
-            .modal.show {
-                opacity: 1;
-                visibility: visible;
+            .video-wrapper iframe {
+                width: 70%;
+                height: 70%;
+                border-radius: 16px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+                transform: scale(0.8);
+                opacity: 0;
+                transition: all 0.1s linear;
             }
 
-        .modal-content {
-            position: relative;
-            width: 90%;
-            max-width: 900px;
-            height: 0;
-            padding-bottom: 56.25%;
-            background-color: #000;
+        .video-overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            opacity: 1;
+            transition: opacity 0.5s ease;
         }
 
-            .modal-content iframe {
-                position: absolute;
-                top: 0;
-                left: 0;
+            .video-overlay-text.fade-out {
+                opacity: 0;
+            }
+
+            .video-overlay-text h3 {
+                font-size: clamp(2rem, 5vw, 4rem);
+                font-weight: 700;
+                margin-bottom: 1rem;
+                background: linear-gradient(135deg, #fff, var(--accent-color));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .video-overlay-text p {
+                font-size: 1.2rem;
+                color: var(--subtle-gray);
+            }
+
+        .video-info {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+            .video-info.visible {
+                opacity: 1;
+            }
+
+        /* 3D Experience - Side by Side */
+        .experience-3d-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+        }
+
+        .experience-3d-container {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .experience-3d-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .experience-3d-info {
+            text-align: left;
+        }
+
+            .experience-3d-info .project-number {
+                font-size: 0.9rem;
+                color: var(--accent-color);
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                margin-bottom: 1rem;
+            }
+
+            .experience-3d-info h2 {
+                font-size: clamp(1.8rem, 4vw, 2.8rem);
+                font-weight: 700;
+                margin-bottom: 1.5rem;
+                background: linear-gradient(135deg, var(--text-color), var(--accent-color));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .experience-3d-info p {
+                font-size: 1.1rem;
+                line-height: 1.8;
+                color: var(--subtle-gray);
+                margin-bottom: 1.5rem;
+            }
+
+            .experience-3d-info .tech-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
+            }
+
+                .experience-3d-info .tech-tags span {
+                    background: rgba(0, 113, 227, 0.15);
+                    border: 1px solid rgba(0, 113, 227, 0.3);
+                    padding: 0.5rem 1rem;
+                    border-radius: 50px;
+                    font-size: 0.85rem;
+                    color: var(--accent-color);
+                }
+
+        .experience-3d-preview {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4/3;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #000;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+
+            .experience-3d-preview iframe {
                 width: 100%;
                 height: 100%;
                 border: none;
             }
 
-        .close-modal {
+        .scroll-hint {
             position: absolute;
-            top: -40px;
-            right: 0;
-            color: white;
-            font-size: 2.5rem;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.6;
+            animation: bounce 2s infinite;
         }
 
-            .close-modal:hover {
-                transform: scale(1.1);
+            .scroll-hint span {
+                font-size: 0.75rem;
+                color: var(--subtle-gray);
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+            }
+
+            .scroll-hint svg {
+                width: 24px;
+                height: 24px;
+                stroke: var(--text-color);
+            }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), #00d4ff);
+            z-index: 10000;
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+
+        /* Dual Projects Section */
+        .dual-projects-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+        }
+
+        .dual-projects-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        @media (max-width: 900px) {
+            .dual-projects-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Section transitions */
+        .section-fade {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+            .section-fade.visible {
+                opacity: 1;
+                transform: translateY(0);
             }
 
         @media (max-width: 768px) {
@@ -324,10 +586,13 @@
                 padding: 1.5rem 2rem;
             }
 
-            .skills-list {
-                columns: 1;
-                -webkit-columns: 1;
-                -moz-columns: 1;
+            .video-wrapper iframe {
+                width: 90%;
+                height: 40%;
+            }
+
+            .project-intro-content p {
+                font-size: 1rem;
             }
         }
     </style>
@@ -335,6 +600,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 <body>
+
+    <div class="progress-bar" id="progress-bar"></div>
 
     <div id="loading-screen">
         <div class="loader"></div>
@@ -373,103 +640,134 @@
             </div>
         </section>
 
+        <!-- Combined About Me + Technical Expertise -->
         <section class="scroll-section center-align">
-            <div class="content-card" id="about-cv">
-                <h2 class="section-title">About Me</h2>
-                <p class="section-paragraph">I thrive on bringing a systems-level perspective to software development. My background includes providing expert support for enterprise-level Google services, which honed my skills in troubleshooting complex network architectures and real-time communication protocols like WebRTC and VoIP.</p>
-                <a href="Sebastian_Ovelar_Anderson_CV.pdf" class="btn" download>Download CV</a>
+            <div class="about-skills-container">
+                <div class="content-card" id="about-cv">
+                    <h2 class="section-title">About Me</h2>
+                    <p class="section-paragraph">I thrive on bringing a systems-level perspective to software development. My background includes providing expert support for enterprise-level Google services, which honed my skills in troubleshooting complex network architectures and real-time communication protocols like WebRTC and VoIP.</p>
+                    <a href="Sebastian_Ovelar_Anderson_CV.pdf" class="btn" download>Download CV</a>
+                </div>
+                <div class="content-card" id="tech-expertise">
+                    <h2 class="section-title">Technical Expertise</h2>
+                    <ul class="skills-list">
+                        <li>AI & Data: Python, TensorFlow, PyTorch</li>
+                        <li>Graphics: NeRFs, Gaussian Splatting, OpenGL</li>
+                        <li>Creative Tech: TouchDesigner, ComfyUI</li>
+                        <li>Core Software: C/C++, Java, Git, SQL</li>
+                        <li>3D Pipelines: Three.js, NVIDIA Omniverse</li>
+                        <li>Systems: DSP, WebRTC, VoIP, Linux</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
-        <section class="scroll-section right-align">
-            <div class="content-card" id="tech-expertise">
-                <h2 class="section-title">Technical Expertise</h2>
-                <ul class="skills-list">
-                    <li>AI & Data: Python, TensorFlow, PyTorch</li>
-                    <li>Graphics: NeRFs, Gaussian Splatting, OpenGL</li>
-                    <li>Creative Tech: TouchDesigner, ComfyUI</li>
-                    <li>Core Software: C/C++, Java, Git, SQL</li>
-                    <li>3D Pipelines: Three.js, NVIDIA Omniverse</li>
-                    <li>Systems: DSP, WebRTC, VoIP, Linux</li>
-                </ul>
+        <!-- Project 01 / 3D Reconstruction - Intro -->
+        <section class="project-intro-section">
+            <div class="project-intro-content" id="project1-intro">
+                <div class="project-number">Project 01 / 3D Reconstruction</div>
+                <h2>3D Reconstruction Experience</h2>
+                <p>I've worked on 3D scene reconstruction using tools like Instant-NGP and Gaussian Splatting. This led to creative collaborations—including a tech-art project with a London-based visual artist and a fashion brand in Paraguay, where I translated complex spatial data into immersive visuals.</p>
+                <div class="tech-tags">
+                    <span>Instant-NGP</span>
+                    <span>Gaussian Splatting</span>
+                    <span>Three.js</span>
+                    <span>WebGL</span>
+                </div>
             </div>
         </section>
 
-
-        <section class="scroll-section left-align">
-            <div class="content-card" id="project1">
-                <h2 class="section-title">Project 01 / 3D Reconstruction</h2>
-                <p class="section-paragraph">I've worked on 3D scene reconstruction using tools like Instant-NGP and Gaussian Splatting. This led to creative collaborations—including a tech-art project with a London-based visual artist and a fashion brand in Paraguay, where I translated complex spatial data into immersive visuals.</p>
-                <p class="tech-stack"><strong>Tech:</strong> Instant-NGP, Gaussian Splatting, Three.js, WebGL</p>
-                <button id="launch-3d-btn" class="btn">Launch 3D Experience</button>
+        <!-- 3D Experience - Side by Side (Immediately Active) -->
+        <section class="experience-3d-section">
+            <div class="experience-3d-container">
+                <div class="experience-3d-info">
+                    <div class="project-number">Interactive 3D Scene</div>
+                    <h2>Live 3D Viewer</h2>
+                    <p>Explore this interactive 3D scene built with Gaussian Splatting technology. The model is rendered in real-time using WebGL.</p>
+                    <div class="tech-tags">
+                        <span>Interactive 3D</span>
+                        <span>WebGL</span>
+                        <span>GLTF Models</span>
+                    </div>
+                    <p style="font-size: 0.9rem; color: var(--subtle-gray);">
+                        <i class="fas fa-hand-pointer" style="margin-right: 0.5rem;"></i>
+                        Drag to rotate • Scroll to zoom
+                    </p>
+                </div>
+                <div class="experience-3d-preview">
+                    <iframe src="3d.html" title="3D Model Viewer" loading="eager"></iframe>
+                </div>
             </div>
         </section>
 
-        <section class="scroll-section right-align">
-            <div class="content-card" id="project2">
-                <h2 class="section-title">Project 02 / NeRF Visualization</h2>
-                <p class="section-paragraph">A cinematic walkthrough of a complex 3D scene, rendered from a Neural Radiance Field. This showcases advanced volumetric rendering and video integration.</p>
-                <p class="tech-stack"><strong>Tech:</strong> NeRF, FFmpeg, Python</p>
-                <button id="watch-video-btn" class="btn">Watch Video</button>
+        <!-- Project 02 / NeRF Visualization - Intro -->
+        <section class="project-intro-section">
+            <div class="project-intro-content" id="project2-intro">
+                <div class="project-number">Project 02 / NeRF Visualization</div>
+                <h2>NeRF Visualization</h2>
+                <p>A cinematic walkthrough of a complex 3D scene, rendered from a Neural Radiance Field. This showcases advanced volumetric rendering and video integration.</p>
+                <div class="tech-tags">
+                    <span>NeRF</span>
+                    <span>FFmpeg</span>
+                    <span>Python</span>
+                    <span>Volumetric Rendering</span>
+                </div>
             </div>
         </section>
 
-        <section class="scroll-section left-align">
-            <div class="content-card" id="project3">
-                <h2 class="section-title">Project 03 / Machine Learning for Music Performance</h2>
-                <p class="section-paragraph">This research involved training machine learning models to predict the expressive timing and dynamics introduced by famous cellists, exploring the nuances of musical performance.</p>
-                <p class="tech-stack"><strong>Focus:</strong> Machine Learning, Signal Processing, Data Analysis</p>
-                <a href="https://repositori.upf.edu/items/a159c61e-6ff6-4ae3-a177-ab918686d411" class="btn" target="_blank">View Project Files</a>
+        <!-- Video Showcase Immersive Section -->
+        <section class="video-showcase" id="experience-video">
+            <div class="video-sticky">
+                <div class="video-wrapper">
+                    <div class="video-overlay-text" id="video-intro">
+                        <h3>Watch the Video</h3>
+                        <p>Scroll to reveal the cinematic visualization</p>
+                    </div>
+                    <iframe id="video-frame"
+                            src="https://player.vimeo.com/video/1096213285?background=0&autopause=0"
+                            title="3D Recontruction with Instant NGP"
+                            frameborder="0"
+                            allow="autoplay; fullscreen; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                    <div class="video-info" id="video-info">
+                        <p class="tech-stack"><strong>Tech:</strong> NeRF, FFmpeg, Python</p>
+                    </div>
+                    <div class="scroll-hint" id="scroll-hint-video">
+                        <span>Keep scrolling</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12l7 7 7-7"/>
+                        </svg>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="scroll-section right-align">
-            <div class="content-card" id="project4">
-                <h2 class="section-title">Project 04 / CA Odontología Website</h2>
-                <p class="section-paragraph">Designed and developed a responsive website for a dental clinic, focusing on user experience and appointment streamlining.</p>
-                <p class="tech-stack"><strong>Tech:</strong> HTML, Tailwind CSS, JavaScript</p>
-                <a href="https://www.cynthianderson.com" class="btn" target="_blank">Visit Site</a>
+        <!-- Projects 3 & 4 Side by Side -->
+        <section class="dual-projects-section">
+            <div class="dual-projects-container">
+                <div class="content-card" id="project3">
+                    <h2 class="section-title">Project 03 / ML for Music</h2>
+                    <p class="section-paragraph">This research involved training machine learning models to predict the expressive timing and dynamics introduced by famous cellists, exploring the nuances of musical performance.</p>
+                    <p class="tech-stack" style="margin-bottom: 1.5rem;"><strong>Focus:</strong> Machine Learning, Signal Processing, Data Analysis</p>
+                    <a href="https://repositori.upf.edu/items/a159c61e-6ff6-4ae3-a177-ab918686d411" class="btn" target="_blank">View Project Files</a>
+                </div>
+                <div class="content-card" id="project4">
+                    <h2 class="section-title">Project 04 / CA Odontología</h2>
+                    <p class="section-paragraph">Designed and developed a responsive website for a dental clinic, focusing on user experience and appointment streamlining.</p>
+                    <p class="tech-stack" style="margin-bottom: 1.5rem;"><strong>Tech:</strong> HTML, Tailwind CSS, JavaScript</p>
+                    <a href="https://www.cynthianderson.com" class="btn" target="_blank">Visit Site</a>
+                </div>
             </div>
         </section>
 
- <!--        <section class="scroll-section left-align">
-            <div class="content-card" id="project5">
-                <h2 class="section-title">Project 05 / Audio-Reactive Visualizer</h2>
-                <p class="section-paragraph">An exploration into real-time creative technology. This project uses sound processing and Three.JS to create a dynamic point cloud visualization that reacts and morphs in time with an audio input, demonstrating a command of DSP and interactive graphics.</p>
-                <p class="tech-stack"><strong>Tech:</strong>Real-Time Graphics, DSP</p>
-                <a href="https://project6.sebastianderson.com" class="btn" target="_blank">View Project</a>
-            </div>
-        </section>
--->
         <section class="scroll-section"></section>
-
-    </div>
-
-    <div id="video-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <iframe id="video-iframe"
-                    src="https://player.vimeo.com/video/1096213285"
-                    title="3D Recontruction with Instant NGP"
-                    frameborder="0"
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
-                    allowfullscreen>
-            </iframe>
-        </div>
-    </div>
-
-    <div id="3d-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <iframe id="3d-iframe" src="3d.html" title="3D Model Viewer"></iframe>
-        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simplex-noise@2.4.0/simplex-noise.min.js"></script>
-
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -551,6 +849,7 @@
                 window.requestAnimationFrame(animate);
             };
 
+            // Content cards scroll animations
             const setupScrollAnimations = () => {
                 gsap.to(mountainGroup.rotation, {
                     x: -Math.PI / 2 + 0.3,
@@ -562,7 +861,7 @@
                     scrollTrigger: { trigger: '#scroll-container', start: 'top top', end: 'bottom bottom', scrub: 1 }
                 });
 
-                ['#about-cv', '#tech-expertise', '#project1', '#project2', '#project3', '#project4', '#project5'].forEach((sec) => {
+                ['#about-cv', '#tech-expertise', '#project1-intro', '#project2-intro', '#project3', '#project4'].forEach((sec) => {
                     gsap.to(sec, {
                         opacity: 1, y: 0,
                         scrollTrigger: { trigger: sec, start: 'top 80%', end: 'bottom 60%', toggleActions: 'play none none reverse' }
@@ -570,32 +869,58 @@
                 });
             };
 
-            function setupModal(modalId, btnId, iframeId) {
-                const modal = document.getElementById(modalId);
-                const btn = document.getElementById(btnId);
-                if (!btn) return;
-                const closeModalBtn = modal.querySelector('.close-modal');
-                const iframe = document.getElementById(iframeId);
-                const originalSrc = iframe ? iframe.src : '';
+            // Video showcase scroll animation
+            const setupVideoExperience = () => {
+                const videoFrame = document.getElementById('video-frame');
+                const videoIntro = document.getElementById('video-intro');
+                const videoInfo = document.getElementById('video-info');
+                const hintVideo = document.getElementById('scroll-hint-video');
 
-                btn.addEventListener('click', () => {
-                    modal.classList.add('show');
-                    if (iframeId === 'video-iframe') iframe.src = originalSrc + "?autoplay=1";
+                ScrollTrigger.create({
+                    trigger: '#experience-video',
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 0.5,
+                    onUpdate: (self) => {
+                        const progress = self.progress;
+
+                        // Fade out intro
+                        if (progress > 0.1) {
+                            videoIntro.classList.add('fade-out');
+                        } else {
+                            videoIntro.classList.remove('fade-out');
+                        }
+
+                        // Scale and reveal video
+                        if (progress > 0.2 && progress < 0.6) {
+                            const scaleProgress = (progress - 0.2) / 0.3;
+                            const scale = 0.8 + (scaleProgress * 0.2);
+                            videoFrame.style.transform = `scale(${scale})`;
+                            videoFrame.style.opacity = Math.min(scaleProgress * 2, 1);
+                        } else if (progress >= 0.6) {
+                            videoFrame.style.transform = 'scale(1)';
+                            videoFrame.style.opacity = '1';
+                        } else {
+                            videoFrame.style.transform = 'scale(0.8)';
+                            videoFrame.style.opacity = '0';
+                        }
+
+                        // Show video info
+                        if (progress > 0.5 && progress < 0.9) {
+                            videoInfo.classList.add('visible');
+                        } else {
+                            videoInfo.classList.remove('visible');
+                        }
+
+                        // Fade out hint
+                        if (progress > 0.8) {
+                            hintVideo.style.opacity = 1 - ((progress - 0.8) * 5);
+                        } else {
+                            hintVideo.style.opacity = 0.6;
+                        }
+                    }
                 });
-
-                const closeModal = () => {
-                    modal.classList.remove('show');
-                    if (iframeId === 'video-iframe') iframe.src = originalSrc;
-                };
-
-                closeModalBtn.addEventListener('click', closeModal);
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) closeModal();
-                });
-            }
-
-            setupModal('video-modal', 'watch-video-btn', 'video-iframe');
-            setupModal('3d-modal', 'launch-3d-btn', '3d-iframe');
+            };
 
             const loadingManager = new THREE.LoadingManager(
                 () => {
@@ -603,6 +928,7 @@
                     setTimeout(() => { loadingScreen.style.display = 'none'; }, 800);
                     animate();
                     setupScrollAnimations();
+                    setupVideoExperience();
                 }
             );
 
